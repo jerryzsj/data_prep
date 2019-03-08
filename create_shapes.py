@@ -1,5 +1,6 @@
 import os
 import sys
+import argparse
 import numpy as np
 import h5py
 import open3d
@@ -315,7 +316,7 @@ def create_cylinders(n_points, length_min, length_max, n_box):  # radius = lengt
 	
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
 		
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.rotate()
@@ -325,7 +326,7 @@ def create_cylinders(n_points, length_min, length_max, n_box):  # radius = lengt
 
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
 		
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.rotate()
@@ -350,7 +351,8 @@ def create_partial_cylinders(n_points, length_min, length_max, n_box, partial_ra
 	
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
+
 		partial_ = nr.random()*partial_rate
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.remove_part(partial_)
@@ -361,7 +363,8 @@ def create_partial_cylinders(n_points, length_min, length_max, n_box, partial_ra
 
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
+
 		partial_ = nr.random()*partial_rate
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.remove_part(partial_)
@@ -387,7 +390,7 @@ def create_error_cylinders(n_points, length_min, length_max, n_box, error_percen
 	
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
 		
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.rotate()
@@ -398,7 +401,7 @@ def create_error_cylinders(n_points, length_min, length_max, n_box, error_percen
 
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
 		
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.rotate()
@@ -423,7 +426,7 @@ def create_error_partial_cylinders(n_points, length_min, length_max, n_box, part
 	
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
 		partial_ = nr.random()*partial_rate
 		scene = psg.Cylinder(n_points, height_, radius_)
 		scene.remove_part(partial_)
@@ -435,7 +438,7 @@ def create_error_partial_cylinders(n_points, length_min, length_max, n_box, part
 
 	for i in range(n_box):
 		height_ = nr.random()*(length_max - length_min) + length_min
-		radius_ = nr.random()*(length_max - length_min) + length_min
+		radius_ = nr.random()*((length_max - length_min)/2.0) + length_min
 		
 		partial_ = nr.random()*partial_rate
 		scene = psg.Cylinder(n_points, height_, radius_)
@@ -450,29 +453,40 @@ def create_error_partial_cylinders(n_points, length_min, length_max, n_box, part
 	filelist_test.close()
 
 
-def create_shapes():
+def create_shapes(num_points=1000, min_size=0.04, max_size=0.4, num_samples=200):
 
 	nr.seed()
-	create_spheres(1000, 0.02, 0.2, 1000)
-	create_boxes(1000, 0.04, 0.4, 1000)
-	create_cylinders(1000, 0.04, 0.4, 1000)
+	create_spheres(num_points, min_size/2.0, max_size/2.0, num_samples)
+	create_boxes(num_points, min_size, max_size, num_samples)
+	create_cylinders(num_points, min_size, max_size, num_samples)
 
-	create_error_spheres(1000, 0.02, 0.2, 1000)
-	create_error_boxes(1000, 0.04, 0.4, 1000)
-	create_error_cylinders(1000, 0.04, 0.4, 1000)
+	create_error_spheres(num_points, min_size/2.0, max_size/2.0, num_samples)
+	create_error_boxes(num_points, min_size, max_size, num_samples)
+	create_error_cylinders(num_points, min_size, max_size, num_samples)
 
-	create_partial_spheres(1000, 0.02, 0.2, 1000)
-	create_partial_boxes(1000, 0.04, 0.4, 1000)
-	create_partial_cylinders(1000, 0.04, 0.4, 1000)
+	create_partial_spheres(num_points, min_size/2.0, max_size/2.0, num_samples)
+	create_partial_boxes(num_points, min_size, max_size, num_samples)
+	create_partial_cylinders(num_points, min_size, max_size, num_samples)
 
-	create_error_partial_spheres(1000, 0.02, 0.2, 1000)
-	create_error_partial_boxes(1000, 0.04, 0.4, 1000)
-	create_error_partial_cylinders(1000, 0.04, 0.4, 1000)
+	create_error_partial_spheres(num_points, min_size/2.0, max_size/2.0, num_samples)
+	create_error_partial_boxes(num_points, min_size, max_size, num_samples)
+	create_error_partial_cylinders(num_points, min_size, max_size, num_samples)
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--min_len', type=float, default='0.04', help='')
+parser.add_argument('--max_len', type=float, default='0.4', help='')
+parser.add_argument('--num_points', type=int, default='1000', help='')
+parser.add_argument('--num_samples', type=int, default='200', help='')
+FLAGS = parser.parse_args()
+
+TEMP_DIR = os.path.join(TEMP_DIR, str(FLAGS.min_len)+'to'+str(FLAGS.max_len))
+if not os.path.exists(TEMP_DIR): os.makedirs(TEMP_DIR)
 
 
 if __name__ == "__main__":
 	
-	create_shapes()
+	create_shapes(FLAGS.num_points, FLAGS.min_len, FLAGS.max_len, FLAGS.num_samples)
 
 	# height = 300
 	# width = 120
