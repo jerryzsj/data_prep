@@ -18,7 +18,7 @@ sys.path.append(os.path.join(BASE_DIR, 'primitive_shapes_generator'))
 import primitive_shapes_generator as psg
 
 DATA_DIR = os.path.join(BASE_DIR, 'data')
-TEMP_DIR = os.path.join('/tmp/', 'temp')
+TEMP_DIR = os.path.join(DATA_DIR, 'shapes')
 
 
 def create_spheres(n_points, radius_min, radius_max, n_sphere):
