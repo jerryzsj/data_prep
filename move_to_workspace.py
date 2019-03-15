@@ -45,13 +45,9 @@ TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
 
 if __name__ == "__main__":
 
-	if DATASET_TYPE == 'shapes':
-		train_data, train_label = load_npy(DATA_DIR)
-		test_data, test_label = load_npy(TEST_DATA_DIR)
 
-	if DATASET_TYPE == 'ycb':
-		train_data, train_label = load_npy(DATA_DIR)
-		test_data, test_label = load_npy(TEST_DATA_DIR)
+	train_data, train_label = load_npy(DATA_DIR)
+	test_data, test_label = load_npy(TEST_DATA_DIR)
 
 	mv_train_data = move_to_ws_batch(train_data)
 	mv_test_data = move_to_ws_batch(test_data)
