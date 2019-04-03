@@ -30,9 +30,43 @@
 # python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_0.02to0.12_200'
 # python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_0.02to0.13_200'
 # python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_0.02to0.14_200'
-# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_0.02to0.12_200_thin'
-python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per'
-python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_0.02to0.12_200_thin
+
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_0%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_0%_error_2k'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_1%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_1%_error_2k'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_2%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_2%_error_2k'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_3%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_3%_error_2k'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_4%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_4%_error_2k'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_5%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_5%_error_2k'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_6%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_6%_error_2k'
+# python pcd_to_npy.py --dataset_type='ycb' --dataset_name='ycb_stl_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='ycb' --dataset_name='ycb_stl_2k'
+
+# python pcd_to_npy.py --dataset_type='ycb' --dataset_name='ycb_stl_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='ycb' --dataset_name='ycb_stl_2k'
+
+python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_luca' --filelist='filelist_double_error'
+python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_luca_double_error'
+
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_10%_error_2k' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_10%_error_2k'
+
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_gaussian_5' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_gaussian_5'
+
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_7%_error' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_7%_error'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_8%_error' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_8%_error'
+# python pcd_to_npy.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_9%_error' --filelist='filelist'
+# python normalizing_pcd.py --dataset_type='shapes' --dataset_name='shapes_ycb_20per_9%_error'
 
 
 # python pcd_to_npy.py --dataset_type='ycb' --dataset_name='ycb_50'

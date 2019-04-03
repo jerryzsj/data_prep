@@ -39,6 +39,8 @@ DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
 TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
 
 def save_bbox(filedir, pcd_1, pcd_2):
+	print(pcd_1.shape)
+	print(pcd_2.shape)
 	bbox_1 =np.array(bbox_nppcd(pcd_1))
 	bbox_2 =np.array(bbox_nppcd(pcd_2))
 	np.savetxt(os.path.join(filedir, 'bbox_train.dat'), bbox_1.reshape((3, 2)), fmt='%f', delimiter=',', newline='\n' )

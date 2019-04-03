@@ -113,12 +113,12 @@ def create_error_spheres(idx, diameter_train, diameter_test, n_points=1000, erro
 	filelist_test = open(test_dir+'/filelist','a')
 	
 	scene = psg.Sphere(n_points, radius_train)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(train_dir + "/" + str(idx) + ".pcd")
 	filelist_train.write(str(idx)+".pcd\n")
 	
 	scene = psg.Sphere(n_points, radius_test)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(test_dir + "/" + str(idx) + ".pcd")
 	filelist_test.write(str(idx)+".pcd\n")
 	
@@ -142,14 +142,14 @@ def create_error_partial_spheres(idx, diameter_train, diameter_test, n_points=10
 	partial_ = nr.random()*partial_rate
 	scene = psg.Sphere(n_points, radius_train)
 	scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(train_dir + "/" + str(idx) + ".pcd")
 	filelist_train.write(str(idx)+".pcd\n")
 	
 	partial_ = nr.random()*partial_rate
 	scene = psg.Sphere(n_points, radius_test)
 	scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(test_dir + "/" + str(idx) + ".pcd")
 	filelist_test.write(str(idx)+".pcd\n")
 	
@@ -225,7 +225,7 @@ def create_error_boxes(idx,l_train, w_train, h_train, l_test, w_test, h_test, n_
 	
 	scene = psg.Box(n_points, l_train, w_train, h_train)
 	scene.rotate()
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	# partial_ = nr.random()*partial_rate
 	# scene.remove_part(partial_)
 	scene.save(train_dir + "/" + str(idx) + ".pcd")
@@ -233,7 +233,7 @@ def create_error_boxes(idx,l_train, w_train, h_train, l_test, w_test, h_test, n_
 
 	scene = psg.Box(n_points, l_test, w_test, h_test)
 	scene.rotate()
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	# partial_ = nr.random()*partial_rate
 	# scene.remove_part(partial_)
 	scene.save(test_dir + "/" + str(idx) + ".pcd")
@@ -258,7 +258,7 @@ def create_error_partial_boxes(idx,l_train, w_train, h_train, l_test, w_test, h_
 	scene.rotate()
 	partial_ = nr.random()*partial_rate
 	scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(train_dir + "/" + str(idx) + ".pcd")
 	filelist_train.write(str(idx)+".pcd\n")
 
@@ -266,7 +266,7 @@ def create_error_partial_boxes(idx,l_train, w_train, h_train, l_test, w_test, h_
 	scene.rotate()
 	partial_ = nr.random()*partial_rate
 	scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(test_dir + "/" + str(idx) + ".pcd")
 	filelist_test.write(str(idx)+".pcd\n")
 	
@@ -353,7 +353,7 @@ def create_error_cylinders(idx, diameter_train, height_train, diameter_test, hei
 	scene.rotate()
 	# partial_ = nr.random()*partial_rate
 	# scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(train_dir + "/" + str(idx) + ".pcd")
 	filelist_train.write(str(idx)+".pcd\n")
 
@@ -361,7 +361,7 @@ def create_error_cylinders(idx, diameter_train, height_train, diameter_test, hei
 	scene.rotate()
 	# partial_ = nr.random()*partial_rate
 	# scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(test_dir + "/" + str(idx) + ".pcd")
 	filelist_test.write(str(idx)+".pcd\n")
 	
@@ -387,7 +387,7 @@ def create_error_partial_cylinders(idx, diameter_train, height_train, diameter_t
 	scene.rotate()
 	partial_ = nr.random()*partial_rate
 	scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(train_dir + "/" + str(idx) + ".pcd")
 	filelist_train.write(str(idx)+".pcd\n")
 
@@ -395,7 +395,7 @@ def create_error_partial_cylinders(idx, diameter_train, height_train, diameter_t
 	scene.rotate()
 	partial_ = nr.random()*partial_rate
 	scene.remove_part(partial_)
-	scene.add_error(error_percentage)
+	scene.set_error(error_percentage)
 	scene.save(test_dir + "/" + str(idx) + ".pcd")
 	filelist_test.write(str(idx)+".pcd\n")
 	
@@ -403,7 +403,7 @@ def create_error_partial_cylinders(idx, diameter_train, height_train, diameter_t
 	filelist_test.close()
 
 
-def create_ycb_shapes(num_points=1000, num_samples=20, bias=0.2):
+def create_ycb_shapes(num_points=2000, num_samples=20, bias=0.2, error_percentage=0.09):
 
 	for i in range(BOX_SHAPES.shape[0]):
 		for j in range(num_samples):
@@ -413,10 +413,10 @@ def create_ycb_shapes(num_points=1000, num_samples=20, bias=0.2):
 			l_test = (1+bias-(nr.random()*(bias*2)))*BOX_SHAPES[i,0]
 			w_test = (1+bias-(nr.random()*(bias*2)))*BOX_SHAPES[i,1]
 			h_test = (1+bias-(nr.random()*(bias*2)))*BOX_SHAPES[i,2]
-			create_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
-			create_error_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
-			create_partial_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
-			create_error_partial_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
+			# create_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
+			create_error_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points, error_percentage)
+			# create_partial_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
+			# create_error_partial_boxes(j+i*num_samples, l_train, w_train, h_train, l_test, w_test, h_test, num_points)
 
 	for i in range(CYL_SHAPES.shape[0]):
 		for j in range(num_samples):
@@ -424,19 +424,19 @@ def create_ycb_shapes(num_points=1000, num_samples=20, bias=0.2):
 			h_train = (1+bias-(nr.random()*(bias*2)))*CYL_SHAPES[i,1]
 			d_test = (1+bias-(nr.random()*(bias*2)))*CYL_SHAPES[i,0]
 			h_test = (1+bias-(nr.random()*(bias*2)))*CYL_SHAPES[i,1]
-			create_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
-			create_error_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
-			create_partial_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
-			create_error_partial_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
+			# create_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
+			create_error_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points, error_percentage)
+			# create_partial_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
+			# create_error_partial_cylinders(j+i*num_samples, d_train, h_train, d_test, h_test, num_points)
 
 	for i in range(SPH_SHAPES.shape[0]):
 		for j in range(num_samples):
 			d_train = (1+bias-(nr.random()*(bias*2)))*SPH_SHAPES[i]
 			d_test = (1+bias-(nr.random()*(bias*2)))*SPH_SHAPES[i]
-			create_spheres(j+i*num_samples, d_train, d_test, num_points)
-			create_error_spheres(j+i*num_samples, d_train, d_test, num_points)
-			create_partial_spheres(j+i*num_samples, d_train, d_test, num_points)
-			create_error_partial_spheres(j+i*num_samples, d_train, d_test, num_points)
+			# create_spheres(j+i*num_samples, d_train, d_test, num_points)
+			create_error_spheres(j+i*num_samples, d_train, d_test, num_points, error_percentage)
+			# create_partial_spheres(j+i*num_samples, d_train, d_test, num_points)
+			# create_error_partial_spheres(j+i*num_samples, d_train, d_test, num_points)
 
 
 	# create_spheres(num_points, min_size, max_size, num_samples)

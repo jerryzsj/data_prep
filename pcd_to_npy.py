@@ -35,7 +35,13 @@ DATA_DIR = os.path.join(PROJECT_DIR, 'data')
 DATA_DIR = os.path.join(DATA_DIR, DATASET_TYPE)
 
 if FILELIST!='filelist':
-	SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME +'_partial_'+FILELIST[-1])
+	SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME + FILELIST[8:])
+	SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
+	if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
+	if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
+
+if FILELIST=='filelist':
+	SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME)
 	SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
 	if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
 	if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
@@ -53,39 +59,18 @@ if __name__ == "__main__":
 		test_data, test_label = load_shapes_pcd(TEST_DATA_DIR, FILELIST)
 		train_data = move_to_origin_batch(train_data)
 		test_data = move_to_origin_batch(test_data)
-		save_npy(train_data, train_label, DATA_DIR)
-		save_npy(test_data, test_label, TEST_DATA_DIR)
-		save_bbox(DATA_DIR, train_data, test_data)
+		save_npy(train_data, train_label, SAVE_DIR)
+		save_npy(test_data, test_label, SAVE_TEST_DIR)
+		save_bbox(SAVE_DIR, train_data, test_data)
 
 
-	if DATASET_TYPE == 'ycb' and FILELIST=='filelist':
+	if DATASET_TYPE == 'ycb':
 		train_data, train_label, train_object_list = load_ycb_pcd(DATA_DIR, FILELIST)
 		test_data, test_label, test_object_list = load_ycb_pcd(TEST_DATA_DIR, FILELIST)
-
+		print(test_data.shape)
 		train_data = move_to_origin_batch(train_data)
 		test_data = move_to_origin_batch(test_data)
-		
-		nr.seed()
-		for i in range(train_data.shape[0]):
-			train_data[i] = np.dot(train_data[i],get_rotation_matrix_zxy(nr.random()*360, nr.random()*360, nr.random()*360).T)
-		for i in range(test_data.shape[0]):
-			test_data[i] = np.dot(test_data[i],get_rotation_matrix_zxy(nr.random()*360, nr.random()*360, nr.random()*360).T)
-		
-		save_npy(train_data, train_label, DATA_DIR)
-		save_npy(test_data, test_label, TEST_DATA_DIR)
-
-		np.savetxt(DATA_DIR+'/object_list.dat', train_object_list, fmt='%s')
-		np.savetxt(TEST_DATA_DIR+'/object_list.dat', test_object_list, fmt='%s')
-
-		save_bbox(DATA_DIR, train_data, test_data)
-
-
-	if DATASET_TYPE == 'ycb' and FILELIST!='filelist':
-		train_data, train_label, train_object_list = load_ycb_pcd(DATA_DIR, FILELIST)
-		test_data, test_label, test_object_list = load_ycb_pcd(TEST_DATA_DIR, FILELIST)
-		
-		train_data = move_to_origin_batch(train_data)
-		test_data = move_to_origin_batch(test_data)
+		print(test_data.shape)
 		
 		nr.seed()
 		for i in range(train_data.shape[0]):
