@@ -1,7 +1,8 @@
 #!/bin/bash
 
-python npy_to_pcd.py --dataset_type='shapes' --dataset_name=shapes_luca_clean_norm
-python npy_to_pcd.py --dataset_type='shapes' --dataset_name=shapes_luca_clean_norm_norm
+python npy_to_pcd.py --dataset_type='mechnet' --dataset_name=3cam_kinect_1000_norm
+
+# python npy_to_pcd.py --dataset_type='mechnet' --dataset_name=shapes_luca_clean_norm_norm
 
 # python npy_to_pcd.py --dataset_type=shapes --dataset_name=shapes_ycb_20per_0%_error_norm_norm
 # python npy_to_pcd.py --dataset_type=shapes --dataset_name=shapes_ycb_20per_1%_error_norm_norm

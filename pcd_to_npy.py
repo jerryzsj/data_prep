@@ -18,46 +18,46 @@ sys.path.append(os.path.join(BASE_DIR, 'pcl_utils'))
 from pcio import *
 from normalize_data import *
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_DIR = os.path.dirname(BASE_DIR)
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--dataset_type', default='mechnet', help='Dataset type [shapes/ycb/mechnet/normalized]')
-parser.add_argument('--dataset_name', default='3cam', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
-parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
-parser.add_argument('--num_point', type=int, default=3000)
-parser.add_argument('--num_sample', type=int, default=50)
-FLAGS = parser.parse_args()
-
-NUM_POINT = FLAGS.num_point
-NUM_SAMPLE = FLAGS.num_sample
-
-FILELIST = FLAGS.filelist
-DATASET_TYPE = FLAGS.dataset_type
-DATASET_NAME = FLAGS.dataset_name
-
-DATA_DIR = os.path.join(PROJECT_DIR, 'data')
-DATA_DIR = os.path.join(DATA_DIR, DATASET_TYPE)
-
-if FILELIST!='filelist':
-	SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME + FILELIST[8:] + "_" +str(NUM_POINT))
-	SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
-	if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
-	if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
-
-if FILELIST=='filelist':
-	SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME+ "_" +str(NUM_POINT))
-	SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
-	if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
-	if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
-
-DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
-TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
-
-
-
 
 if __name__ == "__main__":
+
+	PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+	BASE_DIR = os.path.dirname(PROJECT_DIR)
+
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--dataset_type', default='kinect', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='3cam_30d_600mm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--filelist', default='filelist_merge', help='filelist [filelist/filelist_partial]')
+	# parser.add_argument('--filelist_2', default='filelist', help='filelist [filelist/filelist_partial]')
+	# parser.add_argument('--num_point', type=int, default=1000)
+	# parser.add_argument('--num_sample', type=int, default=50)
+	FLAGS = parser.parse_args()
+
+	# NUM_POINT = FLAGS.num_point
+	# NUM_SAMPLE = FLAGS.num_sample
+
+	FILELIST = FLAGS.filelist
+	DATASET_TYPE = FLAGS.dataset_type
+	DATASET_NAME = FLAGS.dataset_name
+
+	DATA_DIR = os.path.join(BASE_DIR, 'data')
+	DATA_DIR = os.path.join(DATA_DIR, DATASET_TYPE)
+
+	if FILELIST!='filelist':
+		SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME + FILELIST[8:])
+		SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
+		if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
+		if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
+
+	if FILELIST=='filelist':
+		SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME)
+		SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
+		if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
+		if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
+
+	DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
+	TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
+
 
 	if DATASET_TYPE == 'shapes':
 		train_data, train_label = load_shapes_pcd(DATA_DIR, FILELIST)
@@ -95,9 +95,18 @@ if __name__ == "__main__":
 	# test_data, test_label = load_npy(TEST_DATA_DIR)
 
 	if DATASET_TYPE == 'mechnet':
-		train_data, train_label = load_oneforder_pcd(DATA_DIR, FILELIST, NUM_POINT)
-		test_data, test_label = load_oneforder_pcd(TEST_DATA_DIR, FILELIST, NUM_POINT)
+		train_data, train_label = load_twoforder_pcd(DATA_DIR, filelist_1=FILELIST)
+		test_data, test_label = load_twoforder_pcd(TEST_DATA_DIR, filelist_1=FILELIST)
 		save_npy(train_data, train_label, SAVE_DIR)
 		save_npy(test_data, test_label, SAVE_TEST_DIR)
 		save_bbox(SAVE_DIR, train_data, test_data)
 
+	if DATASET_TYPE == 'kinect':
+		data, label, object_list = load_twoforder_pcd(DATA_DIR, filelist_2=FILELIST)
+
+		save_npy(data, label, SAVE_DIR)
+		# save_npy(test_data, test_label, SAVE_TEST_DIR)
+		# save_bbox(SAVE_DIR, train_data, test_data)
+		objectlist_savedir = os.path.join(SAVE_DIR, 'object_list.dat')
+		# print(object_list)
+		save_list(object_list, objectlist_savedir)
