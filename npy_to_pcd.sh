@@ -1,6 +1,13 @@
 #!/bin/bash
 
-python npy_to_pcd.py --dataset_type='mechnet' --dataset_name=3cam_kinect_1000_norm
+THREECAM=3cam_origin_1000_norm_
+ERROR=_error
+
+for i in {1..10}
+do
+	python npy_to_pcd.py --dataset_type='mech12' --dataset_name=$THREECAM$i$ERROR
+done
+
 
 # python npy_to_pcd.py --dataset_type='mechnet' --dataset_name=shapes_luca_clean_norm_norm
 

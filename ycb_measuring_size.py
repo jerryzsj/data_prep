@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset_type', default='shapes', help='Dataset type [shapes/ycb/mechnet/normalized]')
-parser.add_argument('--dataset_name', default='shapes_ycb', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
+parser.add_argument('--dataset_name', default='stl_files_14cam', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 FLAGS = parser.parse_args()
 
@@ -40,6 +40,7 @@ if FILELIST!='filelist':
 	if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
 
 DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
+TRAIN_DATA_DIR = os.path.join(DATA_DIR, 'train')
 TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
 
 
@@ -95,6 +96,57 @@ def cal_sph_shape_batch(key_point):
 
 
 if __name__ == "__main__":
+	
+	# # find box's size
+	# print('Finding boxes size points')
+	# box_size_point = []
+	# for i in range(12):
+	# 	data = load_open3d_pcd(DATA_DIR + ('/' +str(i)+'.pcd'))
+	# 	box_size_point.append(pick_points(data))
+	# np.save(os.path.join(DATA_DIR, 'box_size_point.npy'), box_size_point)
+	# 
+	# print('Calculating boxes size')
+	# data = np.load(os.path.join(DATA_DIR, 'box_size_point.npy'))
+	# box_shape = cal_box_shape_batch(data)
+	# np.savetxt(os.path.join(DATA_DIR, 'box_shapes.txt'), box_shape)
+	# print(box_shape)
+	
+	
+	# # find cylinder's size
+	# print('Finding cyliners size points')
+	# cylinder_size_point = []
+	# for i in range(12,24):
+	# 	print(str(i)+'.pcd')
+	# 	data = load_open3d_pcd(DATA_DIR + ('/' +str(i)+'.pcd'))
+	# 	cylinder_size_point.append(pick_points(data))
+	# np.save(os.path.join(DATA_DIR, 'cylinder_size_point.npy'), cylinder_size_point)
+	# 
+	# print('Calculating cyliners size')
+	# data = np.load(os.path.join(DATA_DIR, 'cylinder_size_point.npy'))
+	# cylinder_shape = cal_cyl_shape_batch(data)
+	# np.savetxt(os.path.join(DATA_DIR, 'cylinder_shapes.txt'), cylinder_shape)
+	# print(cylinder_shape)
+	
+	
+	
+	# find sphere's size
+	print('Finding spheres size points')
+	sphere_size_point = []
+	for i in range(24,36):
+		print(str(i)+'.pcd')
+		data = load_open3d_pcd(DATA_DIR + ('/' +str(i)+'.pcd'))
+		sphere_size_point.append(pick_points(data))
+	np.save(os.path.join(DATA_DIR, 'sphere_size_point.npy'), sphere_size_point)
+	
+	print('Calculating spheres size')
+	data = np.load(os.path.join(DATA_DIR, 'sphere_size_point.npy'))
+	sphere_shape = cal_sph_shape_batch(data)
+	np.savetxt(os.path.join(DATA_DIR, 'sphere_shapes.txt'), sphere_shape)
+	print(sphere_shape)
+	
+	
+	
+	
 	# data = np.load(os.path.join(DATA_DIR, 'box_shapes.npy'))
 	# print(data)
 
@@ -110,8 +162,8 @@ if __name__ == "__main__":
 	# np.save(os.path.join(DATA_DIR, 'cyl_shapes.npy'), cyl_shape)
 	# print(cyl_shape)
 
-	train_data, train_label = load_shapes_pcd(DATA_DIR, FILELIST)
-	test_data, test_label = load_shapes_pcd(TEST_DATA_DIR, FILELIST)
+	# train_data, train_label = load_npy(TRAIN_DATA_DIR)
+	# test_data, test_label = load_npy(TEST_DATA_DIR)
 	
 	# picked_point = []
 	# for i in range(0, 12):
@@ -138,10 +190,10 @@ if __name__ == "__main__":
 	# np.save(os.path.join(DATA_DIR, 'cyl_shapes.npy'), cyl_shape)
 	# print(cyl_shape)
 
-	picked_point = []
-	for i in range(24, 36):
-		pcd = np_to_pcd(train_data[i])
-		picked_point.append(pick_points(pcd))
+	# picked_point = []
+	# for i in range(24, 36):
+	# 	pcd = nppcd_to_open3d(train_data[i])
+	# 	picked_point.append(pick_points(pcd))
 	# np.save(os.path.join(DATA_DIR, 'sph_size_points.npy'), np.array(picked_point))
 
 	# data = np.load(os.path.join(DATA_DIR, 'sph_size_points.npy'))

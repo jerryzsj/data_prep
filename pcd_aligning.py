@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/]')
-	parser.add_argument('--dataset_name', default='ycb_stl_uni_norm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_name', default='ycb_stl', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	parser.add_argument('--save_dir', default='aligned_pcd', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()
@@ -82,17 +82,18 @@ if __name__ == "__main__":
 	DATA_DIR = os.path.join(DATA_DIR, FLAGS.dataset_name)
 
 	TRAIN_DATA_DIR = os.path.join(DATA_DIR, 'train')
-	TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
+	# TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
 
-	TRAIN_SAVE_DIR = os.path.join(TRAIN_DATA_DIR, FLAGS.aligned_pcd)
-	TEST_SAVE_DIR = os.path.join(TEST_SAVE_DIR, FLAGS.aligned_pcd)
+	TRAIN_SAVE_DIR = os.path.join(TRAIN_DATA_DIR, FLAGS.save_dir)
+	# TEST_SAVE_DIR = os.path.join(TEST_DATA_DIR, FLAGS.save_dir)
 	if not os.path.exists(TRAIN_SAVE_DIR): os.makedirs(TRAIN_SAVE_DIR)
-	if not os.path.exists(TEST_SAVE_DIR): os.makedirs(TEST_SAVE_DIR)
+	# if not os.path.exists(TEST_SAVE_DIR): os.makedirs(TEST_SAVE_DIR)
 	
-	pcd_aligning(TRAIN_DATA_DIR, FILELIST)
-	pcd_aligning(TEST_DATA_DIR, FILELIST)
+	# pcd_aligning(TRAIN_DATA_DIR, FILELIST)
+	# pcd_aligning(TEST_DATA_DIR, FILELIST)
 	
-		
+	print(TRAIN_DATA_DIR)
+	print(TRAIN_SAVE_DIR)
 		
 
 

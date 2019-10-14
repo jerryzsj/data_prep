@@ -25,15 +25,15 @@ if __name__ == "__main__":
 	BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--dataset_type', default='kinect', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='3cam_30d_600mm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
-	parser.add_argument('--filelist', default='filelist_merge', help='filelist [filelist/filelist_partial]')
+	parser.add_argument('--dataset_type', default='mech12', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='3cam_origin_10000', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	# parser.add_argument('--filelist_2', default='filelist', help='filelist [filelist/filelist_partial]')
-	# parser.add_argument('--num_point', type=int, default=1000)
+	parser.add_argument('--num_point', type=int, default=10000)
 	# parser.add_argument('--num_sample', type=int, default=50)
 	FLAGS = parser.parse_args()
 
-	# NUM_POINT = FLAGS.num_point
+	NUM_POINT = (FLAGS.num_point)
 	# NUM_SAMPLE = FLAGS.num_sample
 
 	FILELIST = FLAGS.filelist
@@ -57,6 +57,21 @@ if __name__ == "__main__":
 
 	DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
 	TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
+
+
+	if DATASET_TYPE == 'mech12':
+		TRAIN_DATA_DIR = os.path.join(DATA_DIR, 'train')
+		train_data, train_label = load_oneforder_pcd(TRAIN_DATA_DIR)
+		test_data, test_label = load_oneforder_pcd(TEST_DATA_DIR)
+		print(train_data.shape)
+		print(test_data.shape)
+
+		TRAIN_SAVE_DIR = os.path.join(SAVE_DIR, 'train')
+		TEST_SAVE_DIR = os.path.join(SAVE_DIR, 'test')
+
+		save_npy(train_data, train_label, TRAIN_SAVE_DIR)
+		save_npy(test_data, test_label, TEST_SAVE_DIR)
+
 
 
 	if DATASET_TYPE == 'shapes':
