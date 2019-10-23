@@ -25,8 +25,8 @@ if __name__ == "__main__":
 	BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--dataset_type', default='mech12', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='3cam_origin_10000', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='ycb_similar', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	# parser.add_argument('--filelist_2', default='filelist', help='filelist [filelist/filelist_partial]')
 	parser.add_argument('--num_point', type=int, default=10000)
@@ -85,29 +85,31 @@ if __name__ == "__main__":
 
 
 	if DATASET_TYPE == 'ycb':
-		train_data, train_label, train_object_list = load_ycb_pcd(DATA_DIR, FILELIST)
-		test_data, test_label, test_object_list = load_ycb_pcd(TEST_DATA_DIR, FILELIST)
-		print(test_data.shape)
+		train_data, train_label = load_oneforder_pcd(TEST_DATA_DIR, FILELIST)
 		train_data = move_to_origin_batch(train_data)
-		test_data = move_to_origin_batch(test_data)
-		print(test_data.shape)
-		
-		nr.seed()
-		for i in range(train_data.shape[0]):
-			train_data[i] = np.dot(train_data[i],get_rotation_matrix_zxy(nr.random()*360, nr.random()*360, nr.random()*360).T)
-		for i in range(test_data.shape[0]):
-			test_data[i] = np.dot(test_data[i],get_rotation_matrix_zxy(nr.random()*360, nr.random()*360, nr.random()*360).T)
-		
-		save_npy(train_data, train_label, SAVE_DIR)
-		save_npy(test_data, test_label, SAVE_TEST_DIR)
+		save_npy(train_data, train_label, SAVE_TEST_DIR)
 
-		# print(np.shape(train_object_list))
-		np.savetxt(SAVE_DIR+'/object_list.dat', train_object_list, fmt='%s')
-		np.savetxt(SAVE_TEST_DIR+'/object_list.dat', test_object_list, fmt='%s')
+	# if DATASET_TYPE == 'ycb':
+	# 	train_data, train_label, train_object_list = load_ycb_pcd(DATA_DIR, FILELIST)
+	# 	test_data, test_label, test_object_list = load_ycb_pcd(TEST_DATA_DIR, FILELIST)
+	# 	print(test_data.shape)
+	# 	train_data = move_to_origin_batch(train_data)
+	# 	test_data = move_to_origin_batch(test_data)
+	# 	print(test_data.shape)
+		
+	# 	nr.seed()
+	# 	for i in range(train_data.shape[0]):
+	# 		train_data[i] = np.dot(train_data[i],get_rotation_matrix_zxy(nr.random()*360, nr.random()*360, nr.random()*360).T)
+	# 	for i in range(test_data.shape[0]):
+	# 		test_data[i] = np.dot(test_data[i],get_rotation_matrix_zxy(nr.random()*360, nr.random()*360, nr.random()*360).T)
+		
+	# 	save_npy(train_data, train_label, SAVE_DIR)
+	# 	save_npy(test_data, test_label, SAVE_TEST_DIR)
 
-		save_bbox(SAVE_DIR, train_data, test_data)
-	# train_data, train_label = load_npy(DATA_DIR)
-	# test_data, test_label = load_npy(TEST_DATA_DIR)
+	# 	np.savetxt(SAVE_DIR+'/object_list.dat', train_object_list, fmt='%s')
+	# 	np.savetxt(SAVE_TEST_DIR+'/object_list.dat', test_object_list, fmt='%s')
+
+	# 	save_bbox(SAVE_DIR, train_data, test_data)
 
 	if DATASET_TYPE == 'mechnet':
 		train_data, train_label = load_twoforder_pcd(DATA_DIR, filelist_1=FILELIST)

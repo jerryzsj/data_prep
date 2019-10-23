@@ -31,7 +31,7 @@ PROJECT_DIR = os.path.dirname(BASE_DIR)
 
 # parsers
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset_dir', default='mechnet_stl', help='Dataset type [shapes/ycb/mechnet/normalized]')
+parser.add_argument('--dataset_dir', default='ycb/stl_files/sphere', help='Dataset type [shapes/ycb/mechnet/normalized]')
 parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_clear]')
 FLAGS = parser.parse_args()
 
@@ -65,7 +65,9 @@ if __name__=="__main__":
 		# print(np.mean(orgin_data['vectors'], axis=0))
 		max_data= (np.max([-1*np.min(orgin_data['vectors'], axis=0),np.max(orgin_data['vectors'], axis=0)]))
 		
-		orgin_data['vectors'] = orgin_data['vectors']/int(max_data)*100
+		# orgin_data['vectors'] = orgin_data['vectors']/int(max_data)*100
+		orgin_data['vectors'] = orgin_data['vectors']*1000
+		
 		print(int(max_data))
 		normed_mesh= mesh.Mesh(orgin_data)
 		normed_mesh.save(save_dir, mode=stl.Mode.ASCII)  # save as ASCII

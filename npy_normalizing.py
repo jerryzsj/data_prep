@@ -26,8 +26,8 @@ if __name__=='__main__':
 	BASE_DIR = os.path.dirname(BASE_DIR)
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--dataset_type', default='mech12', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='3cam_origin_10000', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='ycb_similar', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	parser.add_argument('--save_dir', default='_norm', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()
@@ -67,6 +67,6 @@ if __name__=='__main__':
 	save_npy(train_data, train_label, SAVE_TRAIN_DIR)
 	save_npy(test_data, test_label, SAVE_TEST_DIR)
 
-	save_bbox(SAVE_TRAIN_DIR, train_data, test_data)
+	save_bbox(SAVE_DIR, train_data, test_data)
 	
 	

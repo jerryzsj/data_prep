@@ -22,7 +22,7 @@ PROJECT_DIR = os.path.dirname(BASE_DIR)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
-parser.add_argument('--dataset_name', default='stl_files_14cam', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+parser.add_argument('--dataset_name', default='pcd_for_measuresize', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 FLAGS = parser.parse_args()
 
@@ -96,15 +96,19 @@ def cal_sph_shape_batch(key_point):
 
 
 if __name__ == "__main__":
+	FILELIST=get_filelist(DATA_DIR, FILELIST)
+	filedir = []
+	for f in FILELIST:
+		filedir.append(f+'/origin.pcd')
 	
 	# # find box's size
 	# print('Finding boxes size points')
 	# box_size_point = []
 	# for i in range(12):
-	# 	data = load_open3d_pcd(DATA_DIR + ('/' +str(i)+'.pcd'))
+	# 	data = load_open3d_pcd(filedir[i])
 	# 	box_size_point.append(pick_points(data))
 	# np.save(os.path.join(DATA_DIR, 'box_size_point.npy'), box_size_point)
-	# 
+	
 	# print('Calculating boxes size')
 	# data = np.load(os.path.join(DATA_DIR, 'box_size_point.npy'))
 	# box_shape = cal_box_shape_batch(data)
@@ -117,10 +121,10 @@ if __name__ == "__main__":
 	# cylinder_size_point = []
 	# for i in range(12,24):
 	# 	print(str(i)+'.pcd')
-	# 	data = load_open3d_pcd(DATA_DIR + ('/' +str(i)+'.pcd'))
+	# 	data = load_open3d_pcd(filedir[i])
 	# 	cylinder_size_point.append(pick_points(data))
 	# np.save(os.path.join(DATA_DIR, 'cylinder_size_point.npy'), cylinder_size_point)
-	# 
+	
 	# print('Calculating cyliners size')
 	# data = np.load(os.path.join(DATA_DIR, 'cylinder_size_point.npy'))
 	# cylinder_shape = cal_cyl_shape_batch(data)
@@ -134,7 +138,7 @@ if __name__ == "__main__":
 	sphere_size_point = []
 	for i in range(24,36):
 		print(str(i)+'.pcd')
-		data = load_open3d_pcd(DATA_DIR + ('/' +str(i)+'.pcd'))
+		data = load_open3d_pcd(filedir[i])
 		sphere_size_point.append(pick_points(data))
 	np.save(os.path.join(DATA_DIR, 'sphere_size_point.npy'), sphere_size_point)
 	
@@ -146,6 +150,9 @@ if __name__ == "__main__":
 	
 	
 	
+
+
+
 	
 	# data = np.load(os.path.join(DATA_DIR, 'box_shapes.npy'))
 	# print(data)
