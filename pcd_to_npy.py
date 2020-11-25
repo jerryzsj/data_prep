@@ -1,8 +1,7 @@
 import os
 import sys
 import numpy as np
-import numpy.random as nr
-import h5py
+import numpy.random as nrp
 import open3d
 import argparse
 
@@ -26,10 +25,10 @@ if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='ycb_similar', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_name', default='ycb_similar_SP20_BIAS1', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	# parser.add_argument('--filelist_2', default='filelist', help='filelist [filelist/filelist_partial]')
-	parser.add_argument('--num_point', type=int, default=10000)
+	parser.add_argument('--num_point', type=int, default=1000)
 	# parser.add_argument('--num_sample', type=int, default=50)
 	FLAGS = parser.parse_args()
 
@@ -51,11 +50,13 @@ if __name__ == "__main__":
 
 	if FILELIST=='filelist':
 		SAVE_DIR = os.path.join(DATA_DIR, DATASET_NAME)
+		SAVE_TRAIN_DIR = os.path.join(SAVE_DIR, 'train')
 		SAVE_TEST_DIR = os.path.join(SAVE_DIR, 'test')
 		if not os.path.exists(SAVE_DIR): os.makedirs(SAVE_DIR)
 		if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
 
 	DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
+	TRAIN_DATA_DIR = os.path.join(DATA_DIR, 'train')
 	TEST_DATA_DIR = os.path.join(DATA_DIR, 'test')
 
 
@@ -85,9 +86,22 @@ if __name__ == "__main__":
 
 
 	if DATASET_TYPE == 'ycb':
-		train_data, train_label = load_oneforder_pcd(TEST_DATA_DIR, FILELIST)
-		train_data = move_to_origin_batch(train_data)
-		save_npy(train_data, train_label, SAVE_TEST_DIR)
+		data, label = load_oneforder_pcd(TEST_DATA_DIR, FILELIST)
+		data = move_to_origin_batch(data)
+		save_npy(data, label, SAVE_TEST_DIR)
+
+		data, label = load_oneforder_pcd(TRAIN_DATA_DIR, FILELIST)
+		data = move_to_origin_batch(data)
+		save_npy(data, label, SAVE_TRAIN_DIR)
+
+		# data, label = load_threeforder_pcd(TRAIN_DATA_DIR, FILELIST, FILELIST, FILELIST)
+		# data = move_to_origin_batch(data)
+		# save_npy(data, label, SAVE_TRAIN_DIR)
+
+		# data, label = load_threeforder_pcd(TEST_DATA_DIR, FILELIST, FILELIST, FILELIST)
+		# data = move_to_origin_batch(data)
+		# save_npy(data, label, SAVE_TEST_DIR)
+
 
 	# if DATASET_TYPE == 'ycb':
 	# 	train_data, train_label, train_object_list = load_ycb_pcd(DATA_DIR, FILELIST)

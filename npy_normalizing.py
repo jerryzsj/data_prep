@@ -12,6 +12,7 @@ sys.path.append(BASE_DIR)
 from np_utils import *
 from save_bbox import save_bbox
 
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(BASE_DIR)
@@ -27,7 +28,7 @@ if __name__=='__main__':
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='ycb_similar', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_name', default='ycb_similar_SP20_BIAS2', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	parser.add_argument('--save_dir', default='_norm', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()
@@ -68,5 +69,10 @@ if __name__=='__main__':
 	save_npy(test_data, test_label, SAVE_TEST_DIR)
 
 	save_bbox(SAVE_DIR, train_data, test_data)
+
+	for idx, val in enumerate(train_data):
+		save_pcd_dir(val, idx, os.path.join(SAVE_TRAIN_DIR,'pcd'))
+	for idx, val in enumerate(test_data):
+		save_pcd_dir(val, idx, os.path.join(SAVE_TEST_DIR,'pcd'))
 	
 	

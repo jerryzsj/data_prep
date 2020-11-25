@@ -76,8 +76,8 @@ def save_feature_batch(feature_, save_dir_):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--dataset_type', default='shapes', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='shapes_luca_clean', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='ycb_origin_28_SP20_norm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()
 

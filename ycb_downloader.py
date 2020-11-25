@@ -7,8 +7,8 @@ import os
 import sys
 import json
 import urllib
-# import urllib.request as urllib2
-import urllib2
+import urllib.request as urllib2
+# import urllib3 as urllib
 
 output_directory = "./ycb"
 
@@ -16,7 +16,7 @@ output_directory = "./ycb"
 # download.
 #objects_to_download = "all"
 #objects_to_download = ["002_master_chef_can", "003_cracker_box"]
-objects_to_download = "all"
+objects_to_download = ["003_cracker_box"]
 
 # You can edit this list to only download certain kinds of files.
 # 'berkeley_rgbd' contains all of the depth maps and images from the Carmines.
@@ -81,9 +81,9 @@ def extract_tgz(filename, dir):
 
 def check_url(url):
     try:
-        request = urllib2.Request(url)
+        request = urllib.Request(url)
         request.get_method = lambda : 'HEAD'
-        response = urllib2.urlopen(request)
+        response = urllib.urlopen(request)
         return True
     except Exception as e:
         return False
