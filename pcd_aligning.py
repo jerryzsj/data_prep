@@ -45,14 +45,10 @@ def pcd_aligning(data_dir_, filelist_):
 	copyfile(os.path.join(test_pcd_dir_, filelist_), os.path.join(test_save_dir_, filelist_))
 
 
-def pca_transform(data_):
+def pca_transform(data):
 	pca = PCA(n_components=3)
-	pca.fit(data_)
-	pcd_transformed=pca.fit_transform(data_)
-	
-	# save_nppcd(pcd_after, save_dir)
-		# temp_pcd.points = open3d.Vector3dVector(pcd_after)
-		# open3d.write_point_cloud(save_dir, temp_pcd)
+	pca.fit(data)
+	pcd_transformed=pca.fit_transform(data)
 	return(pcd_transformed)
 
 

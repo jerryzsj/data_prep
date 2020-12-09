@@ -1,5 +1,7 @@
 import numpy as np
 import open3d as o3d
+import time
+import os
 
 if __name__ == "__main__":
 
@@ -9,18 +11,46 @@ if __name__ == "__main__":
 	
 	# simi_file = "/Users/senjing/3d-vision/data/ycb_origin_vs_similar_forvis/similar/0.pcd"
 
-	dir_1 ='/Users/senjing/3d-vision/data/ycb/ycb_28_origin_SP20_norm/train/aligned_pcd/'
-	dir_2 = '/Users/senjing/3d-vision/data/shapes/shapes_luca_clean_norm/train/aligned_pcd/'
+	# dir_1 ='/Users/senjing/3d-vision/data/ycb/ycb_28_origin_SP20_norm/train/aligned_pcd/'
+	dir_1 = '/home/senjing/3d-vision/data/shapes/ycb_28_origin_SP20_norm/test/aligned_pcd/'
 
 	pcd_all = []
+	mesh_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.3, origin=[0, 0, 0])
+	
+	# os.makedirs('pcd-to-png/ycb_28_origin_SP20_norm')
 
-	for i in range(13,14):
+	for i in range(433,444):
+		print(i)
+		# pcd_all = []
 		n = i
 		f = dir_1 + str(n) + '.pcd'
 		pcd = o3d.io.read_point_cloud(f)
-		pcd_all.append(pcd)
-		f = dir_2 + str(n) + '.pcd'
-		pcd = o3d.io.read_point_cloud(f)
-		pcd_all.append(pcd)
+		# pcd_all.append(pcd)
+		# pcd_all.append(mesh_frame)
+		# vis = o3d.visualization.draw_geometries(pcd_all)
 
-	o3d.visualization.draw_geometries(pcd_all)
+		vis = o3d.visualization.Visualizer()
+		vis.create_window('pcl', width=760, height=540, left=50, top=50, visible=True)
+		vis.add_geometry(pcd)
+		vis.add_geometry(mesh_frame)
+		vis.update_renderer()
+		out_depth = vis.capture_depth_float_buffer(True)
+		vis.capture_screen_image('pcd-to-png/ycb_28_origin_SP20_norm/'+ str(i) +'.png')
+		time.sleep(0.05)
+
+
+
+
+	# vis.capture_screen_image('pcl-img.png')
+	# vis.destroy_window()
+
+	# vis.update_geometry()
+	# vis.poll_events()
+	# vis.update_renderer()
+
+	# Capture image
+	# time.sleep(1)
+	# vis.capture_screen_image('cameraparams.png')
+	# image = vis.capture_screen_float_buffer()
+
+	# vis.destroy_window()

@@ -24,27 +24,6 @@ sys.path.append(os.path.join(BASE_DIR, 'shapes-recognition'))
 from shapes_profiling import *
 import primitive_shapes_generator.primitive_shapes_generator as pg
 
-# def feature_extracting(data_dir_, filelist_):
-# 	train_dir_ = os.path.join(data_dir_, 'train')
-# 	test_dir_ = os.path.join(data_dir_, 'test')
-	
-# 	train_save_dir_ = os.path.join(train_dir_, 'feature.dat')
-# 	test_save_dir_ = os.path.join(test_dir_, 'feature.dat')
-
-# 	train_pcd_dir_ = os.path.join(train_dir_, 'aligned_pcd')
-# 	test_pcd_dir_ = os.path.join(test_dir_, 'aligned_pcd')
-
-# 	if not os.path.exists(test_pcd_dir_) or not os.path.exists(train_pcd_dir_): pcd_aligning(data_dir_, filelist_)
-
-# 	train_data_list = get_filelist(train_pcd_dir_, filelist_)
-# 	train_out_feature = extract_feature_batch(train_data_list)
-# 	save_feature_batch(train_out_feature, train_save_dir_)
-
-# 	test_data_list = get_filelist(test_pcd_dir_, filelist_)
-# 	test_out_feature = extract_feature_batch(test_data_list)
-# 	save_feature_batch(test_out_feature, test_save_dir_)
-
-
 def extract_feature(data_):
 	c_ = np.mean(data_, axis=0)
 	single_feature_ = []
@@ -63,31 +42,7 @@ def extract_feature(data_):
 	
 	return single_feature_
 
-
-# def extract_feature_batch(data_list_):
-# 	batch_feature_ = []
-# 	for i in range(len(data_list_)):
-# 		batch_feature_.append(extract_feature(data_list_[i]))
-# 	return batch_feature_
-
-
-# def save_feature_batch(feature_, save_dir_):
-# 	f = open(save_dir_, 'w+')
-# 	for feat in feature_:
-# 		for i in range(6):
-# 			f.write('%f '%feat[i])
-# 		f.write('\n')
-# 	f.close()
-
-
 if __name__ == "__main__":
-# 	parser = argparse.ArgumentParser()
-# 	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
-# 	parser.add_argument('--dataset_name', default='ycb_28_similar_SP20_BIAS5_norm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
-# 	FLAGS = parser.parse_args()
-
-# 	DATASET_TYPE = FLAGS.dataset_type
-# 	DATASET_NAME = FLAGS.dataset_name
 
 	for i in range(1,11):
 		DATASET_TYPE = 'ycb'
