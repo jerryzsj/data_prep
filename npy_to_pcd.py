@@ -45,7 +45,7 @@ if __name__=='__main__':
 	if not os.path.exists(SAVE_TRAIN_DIR): os.makedirs(SAVE_TRAIN_DIR)
 	if not os.path.exists(SAVE_TEST_DIR): os.makedirs(SAVE_TEST_DIR)
 
-	print(DATA_DIR)
+	print(TRAIN_DATA_DIR)
 	print(TEST_DATA_DIR)
 	train_data, train_label = load_npy(TRAIN_DATA_DIR)	
 	test_data, test_label = load_npy(TEST_DATA_DIR)
@@ -54,6 +54,8 @@ if __name__=='__main__':
 		save_pcd_dir(val, idx, SAVE_TRAIN_DIR)
 	for idx, val in enumerate(test_data):
 		save_pcd_dir(val, idx, SAVE_TEST_DIR)
+
+	# save_bbox(SAVE_DIR, train_data, test_data)
 
 	init_filelist(SAVE_TRAIN_DIR)
 	init_filelist(SAVE_TEST_DIR)
