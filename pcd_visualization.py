@@ -19,7 +19,7 @@ if __name__ == "__main__":
 	
 	# os.makedirs('pcd-to-png/ycb_28_origin_SP20_norm')
 
-	for i in range(433,444):
+	for i in range(560):
 		print(i)
 		# pcd_all = []
 		n = i
@@ -35,11 +35,11 @@ if __name__ == "__main__":
 		vis.add_geometry(mesh_frame)
 		vis.update_renderer()
 		out_depth = vis.capture_depth_float_buffer(True)
+		time.sleep(0.01)
 		vis.capture_screen_image('pcd-to-png/ycb_28_origin_SP20_norm/'+ str(i) +'.png')
-		time.sleep(0.05)
-
-
-
+		time.sleep(0.01)
+		vis.destroy_window()
+		time.sleep(0.01)
 
 	# vis.capture_screen_image('pcl-img.png')
 	# vis.destroy_window()

@@ -61,51 +61,51 @@ if __name__ == "__main__":
 # 	DATASET_TYPE = FLAGS.dataset_type
 # 	DATASET_NAME = FLAGS.dataset_name
 
-	for i in range(1,11):
-		DATASET_TYPE = 'ycb'
-		DATASET_NAME = 'ycb_28_similar_SP20_BIAS'+ str(i) +'_norm'
+	# for i in range(1,11):
+	DATASET_TYPE = 'shapes'
+	DATASET_NAME = 'ycb_28_origin_SP20_norm'
 
 
-		PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-		BASE_DIR = os.path.dirname(PROJECT_DIR)
-		DATA_DIR = os.path.join(BASE_DIR, 'data')
-		DATA_DIR = os.path.join(DATA_DIR, DATASET_TYPE)	
-		DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
+	PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+	BASE_DIR = os.path.dirname(PROJECT_DIR)
+	DATA_DIR = os.path.join(BASE_DIR, 'data')
+	DATA_DIR = os.path.join(DATA_DIR, DATASET_TYPE)	
+	DATA_DIR = os.path.join(DATA_DIR, DATASET_NAME)
 
-		TRAIN_DIR = os.path.join(DATA_DIR, 'train')
-		TEST_DIR = os.path.join(DATA_DIR, 'test')
+	TRAIN_DIR = os.path.join(DATA_DIR, 'train')
+	TEST_DIR = os.path.join(DATA_DIR, 'test')
 
-		TRAIN_SAVE_DIR = os.path.join(TRAIN_DIR, 'aligned_pcd')
-		TEST_SAVE_DIR = os.path.join(TEST_DIR, 'aligned_pcd')
-		if not os.path.exists(TRAIN_SAVE_DIR): os.makedirs(TRAIN_SAVE_DIR)
-		if not os.path.exists(TEST_SAVE_DIR): os.makedirs(TEST_SAVE_DIR)
+	TRAIN_SAVE_DIR = os.path.join(TRAIN_DIR, 'aligned_pcd')
+	TEST_SAVE_DIR = os.path.join(TEST_DIR, 'aligned_pcd')
+	if not os.path.exists(TRAIN_SAVE_DIR): os.makedirs(TRAIN_SAVE_DIR)
+	if not os.path.exists(TEST_SAVE_DIR): os.makedirs(TEST_SAVE_DIR)
 
-		TRAIN_DATA = np.load(os.path.join(TRAIN_DIR, 'data.npy'))
-		TEST_DATA = np.load(os.path.join(TEST_DIR, 'data.npy'))
+	TRAIN_DATA = np.load(os.path.join(TRAIN_DIR, 'data.npy'))
+	TEST_DATA = np.load(os.path.join(TEST_DIR, 'data.npy'))
 
-		train_pcd_list = []
-		num_train = TRAIN_DATA.shape[0]
-		for i in range(num_train):
-			transformed = pca_transform(TRAIN_DATA[i])
-			save_nppcd(transformed, os.path.join(TRAIN_SAVE_DIR, str(i)+'.pcd'))
-			train_pcd_list.append(transformed)
-		np.save(os.path.join(TRAIN_DIR, 'data_aligned.npy'), np.array(train_pcd_list))
+	train_pcd_list = []
+	num_train = TRAIN_DATA.shape[0]
+	for i in range(num_train):
+		transformed = pca_transform(TRAIN_DATA[i])
+		save_nppcd(transformed, os.path.join(TRAIN_SAVE_DIR, str(i)+'.pcd'))
+		train_pcd_list.append(transformed)
+	np.save(os.path.join(TRAIN_DIR, 'data_aligned.npy'), np.array(train_pcd_list))
 
-		if np.shape(train_pcd_list) != TRAIN_DATA.shape:
-			print('Something wrong with pcd aligning')
+	if np.shape(train_pcd_list) != TRAIN_DATA.shape:
+		print('Something wrong with pcd aligning')
 
-		test_pcd_list = []
-		num_test = TEST_DATA.shape[0]
-		for i in range(num_test):
-			transformed = pca_transform(TEST_DATA[i])
-			save_nppcd(transformed, os.path.join(TEST_SAVE_DIR, str(i)+'.pcd'))
-			test_pcd_list.append(transformed)
-		np.save(os.path.join(TEST_DIR, 'data_aligned.npy'), np.array(test_pcd_list))
+	test_pcd_list = []
+	num_test = TEST_DATA.shape[0]
+	for i in range(num_test):
+		transformed = pca_transform(TEST_DATA[i])
+		save_nppcd(transformed, os.path.join(TEST_SAVE_DIR, str(i)+'.pcd'))
+		test_pcd_list.append(transformed)
+	np.save(os.path.join(TEST_DIR, 'data_aligned.npy'), np.array(test_pcd_list))
 
-		if np.shape(test_pcd_list) != TEST_DATA.shape:
-			print('Something wrong with pcd aligning')
+	if np.shape(test_pcd_list) != TEST_DATA.shape:
+		print('Something wrong with pcd aligning')
 
-		print('Finish pcd aligning with dataset: '+DATASET_NAME)
+	print('Finish pcd aligning with dataset: '+DATASET_NAME)
 
 
 
