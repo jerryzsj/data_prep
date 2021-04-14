@@ -13,31 +13,25 @@ if __name__ == "__main__":
 	# shapes_luca_error_norm
 	# ycb_28_similar_SP20_BIAS5_norm_error5
 
-<<<<<<< HEAD
 	# dir_1 ='/Users/senjing/3d-vision/data/ycb/ycb_28_origin_SP20_norm/train/aligned_pcd/'
 	dir_1 = '/home/senjing/3d-vision/data/shapes/ycb_28_origin_SP20_norm/test/aligned_pcd/'
-=======
-	dir_1 ='/Users/senjing/3d-vision/data/shapes/ycb_28_similar_SP20_BIAS5_norm_error/train/pcd/'
-	dir_2 = '/Users/senjing/3d-vision/data/shapes/shapes_luca_error_norm/train/aligned_pcd/'
->>>>>>> 48a770ad572c0ef9fd489aed9c1d42eec496717b
+	# dir_1 ='/Users/senjing/3d-vision/data/shapes/ycb_28_similar_SP20_BIAS5_norm_error/train/pcd/'
+	# dir_2 = '/Users/senjing/3d-vision/data/shapes/shapes_luca_error_norm/train/aligned_pcd/'
+
 
 	pcd_all = []
 	mesh_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.3, origin=[0, 0, 0])
 	
 	# os.makedirs('pcd-to-png/ycb_28_origin_SP20_norm')
 
-<<<<<<< HEAD
 	for i in range(560):
 		print(i)
 		# pcd_all = []
-=======
-	for i in range(11,12):
->>>>>>> 48a770ad572c0ef9fd489aed9c1d42eec496717b
+	# for i in range(11,12):
 		n = i
 		f = dir_1 + str(n) + '.pcd'
 		pcd = o3d.io.read_point_cloud(f)
 		# pcd_all.append(pcd)
-<<<<<<< HEAD
 		# pcd_all.append(mesh_frame)
 		# vis = o3d.visualization.draw_geometries(pcd_all)
 
@@ -66,10 +60,8 @@ if __name__ == "__main__":
 	# image = vis.capture_screen_float_buffer()
 
 	# vis.destroy_window()
-=======
 		# f = dir_2 + str(n) + '.pcd'
 		# pcd = o3d.io.read_point_cloud(f)
 		# pcd_all.append(pcd)
 
 		o3d.visualization.draw_geometries([pcd])
->>>>>>> 48a770ad572c0ef9fd489aed9c1d42eec496717b
