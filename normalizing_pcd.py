@@ -23,8 +23,8 @@ if __name__=='__main__':
 	BASE_DIR = os.path.dirname(BASE_DIR)
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--dataset_type', default='mechnet', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='3cam_kinect_1000', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='ycb_28_origin_clouds_sampled', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
 	parser.add_argument('--save_dir', default='_norm', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()

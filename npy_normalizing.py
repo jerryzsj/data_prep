@@ -28,12 +28,10 @@ if __name__=='__main__':
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--dataset_type', default='ycb', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='ycb_similar_SP20_BIAS2', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
-	parser.add_argument('--filelist', default='filelist', help='filelist [filelist/filelist_partial]')
+	parser.add_argument('--dataset_name', default='ycb_28_origin_clouds_sampled', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--save_dir', default='_norm', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()
 
-	FILELIST = FLAGS.filelist
 	DATASET_TYPE = FLAGS.dataset_type
 	DATASET_NAME = FLAGS.dataset_name
 	SAVE_DIR = FLAGS.save_dir

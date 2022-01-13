@@ -63,6 +63,9 @@ if __name__=='__main__':
 
 	save_bbox(SAVE_DIR, train_data, test_data)
 	
+
+
+	
 	# if DATASET_TYPE == 'ycb' or 'mechnet':
 	# 	copyfile(os.path.join(DATA_DIR,'object_list.dat'), os.path.join(SAVE_TRAIN_DIR,'object_list.dat'))
 	# 	copyfile(os.path.join(TEST_DATA_DIR,'object_list.dat'), os.path.join(SAVE_TEST_DIR,'object_list.dat'))
