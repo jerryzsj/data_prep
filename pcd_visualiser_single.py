@@ -16,8 +16,8 @@ if __name__ == "__main__":
 	BASE_DIR = os.path.dirname(BASE_DIR)
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument('--dataset_type', default='mech12', help='Dataset type [shapes/ycb/mechnet/normalized]')
-	parser.add_argument('--dataset_name', default='12cam_origin_1000_norm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
+	parser.add_argument('--dataset_type', default='shapes', help='Dataset type [shapes/ycb/mechnet/normalized]')
+	parser.add_argument('--dataset_name', default='shapes_luca_error_norm', help='Data forder [shapes_0.04to0.4/shapes_0.5to0.8/shapes_luca/ycb_50]')
 	parser.add_argument('--save_dir', default='png', help='filelist [filelist/filelist_partial]')
 	FLAGS = parser.parse_args()
 
@@ -44,19 +44,22 @@ if __name__ == "__main__":
 	
 	# os.makedirs('pcd-to-png/ycb_28_origin_SP20_norm')
 
-	for i in range(10):
+	for i in range(1,2):
 		print(i)
-		f = TRAIN_DATA_DIR + str(i) + '.pcd'
+		f = TRAIN_DATA_DIR + '/' + str(i) + '.pcd'
 		pcd = o3d.io.read_point_cloud(f)
 
-
-		vis = o3d.visualization.Visualizer()
-		vis.create_window('pcl', width=600, height=600, left=30, top=30, visible=True)
-		vis.add_geometry(pcd)
-		vis.add_geometry(mesh_frame)
-		vis.update_renderer()
-		out_depth = vis.capture_depth_float_buffer(True)
-		time.sleep(20)
+		# vis = o3d.visualization.Visualizer()
+		vis = o3d.visualization.draw_geometries_with_editing([pcd], width=600, height=600)
+		# vis.create_window('pcl', width=1920, height=1080, left=50, top=50, visible=True)
+		# vis.create_window()
+		# vis.add_geometry(pcd)
+		# vis.update_renderer()
+		# out_depth = vis.capture_depth_float_buffer(True)
+		# vis.add_geometry(mesh_frame)
+		# vis.update_renderer()
+		# out_depth = vis.capture_depth_float_buffer(True)
+		# time.sleep(20)
 
 		# vis.capture_screen_image(os.path.join(save_dir, str(i) +'.png'))
 		# vis.destroy_window()
